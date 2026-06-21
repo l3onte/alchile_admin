@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'Admin@alchile.com',
             'password' => bcrypt('12345'),
         ]);
+
     }
 }
