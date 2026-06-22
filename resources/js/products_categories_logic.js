@@ -1,15 +1,16 @@
-const productForm = document.getElementById('product-form');
+import Swal from "sweetalert2";
 
-if (productForm) {
-    productForm.addEventListener('submit', function(e) {
+const categoryForm = document.getElementById('products_categories-form');
+
+if (categoryForm) {
+    categoryForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Indicador de cargando
+
         Swal.fire({
             title: 'Procesando...',
             allowOutsideClick: false,
             didOpen: () => { Swal.showLoading(); }
-        });
+        })
 
         let formData = new FormData(this);
         fetch(this.action, {
@@ -21,65 +22,61 @@ if (productForm) {
             }
         })
         .then(async response => {
-            const data = await response.json(); 
+            const data = await response.json();
             if (!response.ok) {
-                console.error("Error del servidor:", data); 
+                console.error("Error del servidor:", data);
                 throw new Error(JSON.stringify(data.errors || data.message));
             }
             return data;
         })
         .then(data => {
-            ProductModal.close();
-            $('#products-table').DataTable().ajax.reload();
-            
+            ProductCategorieModal.close();
+            $('#products_categories-table').DataTable().ajax.reload();
+
             Swal.fire({
                 icon: 'success',
-                title: '¡Operación exitosa!',
-                text: 'El producto ha sido guardado correctamente.',
+                title: '¡Operacion exitosa!',
+                text: 'La categoria ha sido guardad correctamente.',
                 timer: 2000,
                 showConfirmButton: false
             });
         })
         .catch(error => {
             Swal.fire('Error', 'No se pudo guardar el producto.', 'error');
-        });
-    });   
+        })
+    })
 }
 
-export const ProductModal = {
-    modal: document.getElementById('product-modal'),
-    form: document.getElementById('product-form'),
+export const ProductCategorieModal = {
+    modal: document.getElementById('products_categories-modal'),
+    form: document.getElementById('products_categories-form'),
     title: document.getElementById('modal-title'),
     methodField: document.getElementById('method-field'),
 
     open(action = 'create', data = null) {
         this.modal.classList.remove('hidden');
         if (action === 'create') {
-            this.title.innerText = 'Nuevo Producto';
-            this.form.action = "/product"; 
+            this.title.innerText = 'Nueva Categoria';
+            this.form.action = "/products_categories";
             this.methodField.value = 'POST';
             this.form.reset();
         } else {
-            this.title.innerText = 'Editar Producto';
-            this.form.action = `/product/${data.id}`;
+            this.title.innerText = 'Editar Categoria';
+            this.form.action = `/products_categories/${data.id}`;
             this.methodField.value = 'PUT';
-            
-            document.getElementById('product-sku').value = data.sku;
-            document.getElementById('product-category').value = data.id_category;
-            document.getElementById('product-name').value = data.name;
-            document.getElementById('product-precio_compra').value = data.purchase_price;
-            document.getElementById('product-precio_venta').value = data.sell_price;
-            document.getElementById('product-unidad').value = data.unit;
+
+            document.getElementById('category-name').value = data.name;
+            document.getElementById('category-type').value = data.type;
         }
     },
 
     close() {
         this.modal.classList.add('hidden');
     }
-};
+}
 
-export function deleteProduct(id) {
-    Swal.fire({
+export function deleteCategorie(id) {
+        Swal.fire({
         title: '¿Estás seguro?',
         text: "¡No podrás revertir esto!",
         icon: 'warning',
@@ -90,7 +87,7 @@ export function deleteProduct(id) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`/product/${id}`, {
+            fetch(`/products_categories/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -99,7 +96,7 @@ export function deleteProduct(id) {
             })
             .then(response => response.json())
             .then(() => {
-                $('#products-table').DataTable().ajax.reload();
+                $('#products_categories-table').DataTable().ajax.reload();
                 Swal.fire('¡Eliminado!', 'El producto ha sido borrado.', 'success');
             })
             .catch(() => Swal.fire('Error', 'No se pudo eliminar.', 'error'));

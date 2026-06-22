@@ -10,7 +10,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('product_stock', function (Blueprint $table) {
-            DB::statement('ALTER TABLE product_stock DROP INDEX product_stock_branch_id_product_id_unique');
+            $table->dropForeign('product_stock_branch_id_foreign'); 
+            $table->dropUnique('product_stock_branch_id_product_id_unique');
             $table->date('expiration_date')->nullable()->after('quantity');
         });
     }
@@ -19,7 +20,7 @@ return new class extends Migration
     {
         Schema::table('product_stock', function (Blueprint $table) {
             $table->dropColumn('expiration_date');
-            $table->unique(['branch_id', 'product_id']);
+            $table->unique(['branch_id', 'product_id'], 'product_stock_branch_id_product_id_unique');
         });
     }
 };
