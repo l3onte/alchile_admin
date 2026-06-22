@@ -41,7 +41,7 @@ class="bg-white border-r border-gray-200 w-64 flex flex-col h-screen shrink-0">
                     <x-heroicon-o-tag class="w-5 h-5 text-gray-400" /> Categorias
                 </x-nav-link>
                 <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
-                    <x-heroicon-o-arrows-right-left class="w-5 h-5 text-gray-400" /> Movimientos
+                    <x-heroicon-o-arrows-right-left class="w-5 h-5 text-gray-400" /> Inventario
                 </x-nav-link>
                 <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
                     <x-heroicon-o-truck class="w-5 h-5 text-gray-400" /> Transferencias
@@ -58,7 +58,7 @@ class="bg-white border-r border-gray-200 w-64 flex flex-col h-screen shrink-0">
             </button>
             <div x-show="openAdmin" x-collapse class="mt-1 ml-4 border-l border-gray-200 space-y-0.5 pl-2">
                 <p class="px-3 mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">General</p>
-                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                <x-nav-link :href="route('branch.index')" :active="request()->routeIs('branch.*')"  class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
                     <x-heroicon-o-building-office class="w-4 h-4 text-gray-400" /> Sucursales
                 </x-nav-link>
                 <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">

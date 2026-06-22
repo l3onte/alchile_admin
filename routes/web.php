@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductsCategoriesController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,10 @@ Route::middleware('auth')->group(function () {
     // RUTAS CATEGORIAS
     Route::resource('products_categories', ProductsCategoriesController::class);
     Route::get('products_categories-data', [ProductsCategoriesController::class, 'getData'])->name('products_categories.data');
+
+    // RUTAS SUCURSALES
+    Route::resource('branch', BranchController::class);
+    Route::get('branch-data', [BranchController::class, 'getData'])->name('branch.data');
 });
 
 require __DIR__.'/auth.php';

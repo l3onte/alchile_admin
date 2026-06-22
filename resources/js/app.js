@@ -19,6 +19,14 @@ window.initProductsCategoriesTable = initProductsCategoriesTable;
 window.ProductCategorieModal = ProductCategorieModal;
 window.deleteCategorie = deleteCategorie;
 
+import { initBranchTable } from './datatables/branchs';
+import { BranchModal } from './branchsLogic';
+import { deleteBranch } from './branchsLogic';
+
+window.initBranchTable = initBranchTable;
+window.BranchModal = BranchModal;
+window.deleteBranch = deleteBranch;
+
 window.Alpine = Alpine;
 window.Swal = Swal;
 
