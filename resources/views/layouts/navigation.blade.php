@@ -1,100 +1,106 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+<aside x-data="{ 
+    openAdmin: @json(request()->routeIs('users.*', 'branches.*')), 
+    openConfig: @json(request()->routeIs('settings.*', 'payment-methods.*')) 
+}" 
+class="bg-white border-r border-gray-200 w-64 flex flex-col h-screen shrink-0">
+    
+    <div class="h-16 flex items-center px-6 border-b border-gray-100 bg-white">
+        <div class="flex flex-col">
+            <span class="font-bold text-lg text-red-600 tracking-tight leading-tight">AlChile</span>
+            <span class="text-[11px] font-medium text-gray-400 uppercase tracking-widest leading-none">Guadalupe</span>
         </div>
     </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+    
+    <nav class="flex-1 overflow-y-auto p-4 space-y-6">
+        
+        <div>
+            <h3 class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Operaciones</h3>
+            <div class="space-y-0.5">
+                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-home class="w-5 h-5 text-gray-400" /> Dashboard
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-shopping-bag class="w-5 h-5 text-gray-400" /> Caja
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-document-text class="w-5 h-5 text-gray-400" /> Facturas
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-user-plus class="w-5 h-5 text-gray-400" /> Clientes
+                </x-nav-link>
             </div>
         </div>
+
+        <div>
+            <h3 class="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Inventario</h3>
+            <div class="space-y-0.5">
+                <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.*')" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-archive-box class="w-5 h-5 text-gray-400" /> Productos
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-tag class="w-5 h-5 text-gray-400" /> Categorias
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-arrows-right-left class="w-5 h-5 text-gray-400" /> Movimientos
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    <x-heroicon-o-truck class="w-5 h-5 text-gray-400" /> Transferencias
+                </x-nav-link>
+            </div>
+        </div>
+
+        <div>
+            <button @click="openAdmin = !openAdmin" class="flex w-full items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all">
+                <div class="flex items-center gap-3">
+                    <x-heroicon-o-cog-6-tooth class="w-5 h-5 text-gray-400" /> Administración
+                </div>
+                <x-heroicon-o-chevron-down class="w-4 h-4 text-gray-400 transition-transform duration-200" x-bind:class="openAdmin ? 'rotate-180' : ''" />
+            </button>
+            <div x-show="openAdmin" x-collapse class="mt-1 ml-4 border-l border-gray-200 space-y-0.5 pl-2">
+                <p class="px-3 mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">General</p>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                    <x-heroicon-o-building-office class="w-4 h-4 text-gray-400" /> Sucursales
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                    <x-heroicon-o-credit-card class="w-4 h-4 text-gray-400" /> Métodos de pago
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                    <x-heroicon-o-document-check class="w-4 h-4 text-gray-400" /> Info. Legal
+                </x-nav-link>
+
+                <p class="px-3 mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Personal</p>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                    <x-heroicon-o-user-group class="w-4 h-4 text-gray-400" /> Usuarios
+                </x-nav-link>
+
+                <p class="px-3 mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Comunicaciones</p>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                    <x-heroicon-o-envelope class="w-4 h-4 text-gray-400" /> Enviar Correo
+                </x-nav-link>
+                <x-nav-link href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 hover:text-red-600 transition-colors">
+                    <x-heroicon-o-speaker-wave class="w-4 h-4 text-gray-400" /> Boletines
+                </x-nav-link>
+            </div>
+        </div>
+    </nav>
+
+    <div class="p-4 border-t border-gray-100 bg-white">
+        <div class="flex items-center gap-3 px-2 py-3 mb-4 rounded-xl bg-gray-50 border border-gray-100">
+            <div class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                {{ substr(Auth::user()->name, 0, 1) }}
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</span>
+                <span class="text-[10px] uppercase font-bold text-red-500 tracking-wider">Administrador</span>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="group flex w-full items-center gap-3 px-3 py-2 text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200">
+                <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5 transition-transform group-hover:-translate-x-1" /> 
+                Cerrar Sesión
+            </button>
+        </form>
     </div>
-</nav>
+</aside>

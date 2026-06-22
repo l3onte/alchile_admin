@@ -10,12 +10,10 @@ class Product extends Model
         'id_category',
         'sku',
         'name',
-        'type',
         'purchase_price',
         'sell_price',
         'unit',
         'edited_by',
-        'expiration_date'
     ];
 
     public function category() {
