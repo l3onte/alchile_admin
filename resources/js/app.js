@@ -27,6 +27,14 @@ window.initBranchTable = initBranchTable;
 window.BranchModal = BranchModal;
 window.deleteBranch = deleteBranch;
 
+import { initProductsStockTable } from './datatables/products_stock';
+import { ProductStockModal } from './products_stock_logic';
+import { deleteProductStock } from './products_stock_logic';
+
+window.initProductsStockTable = initProductsStockTable;
+window.ProductStockModal = ProductStockModal;
+window.deleteProductStock = deleteProductStock;
+
 window.Alpine = Alpine;
 window.Swal = Swal;
 

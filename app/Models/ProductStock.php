@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductStock extends Model
 {
+    protected $table = 'product_stock';
+
     protected $fillable = [
         'branch_id',
         'product_id',
-        'quantity'
+        'quantity',
+        'purchase_price',
+        'expiration_date'
     ];
 
     public function branch() {

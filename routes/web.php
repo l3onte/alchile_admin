@@ -3,6 +3,7 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductsCategoriesController;
+use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,10 @@ Route::middleware('auth')->group(function () {
     // RUTAS SUCURSALES
     Route::resource('branch', BranchController::class);
     Route::get('branch-data', [BranchController::class, 'getData'])->name('branch.data');
+
+    // RUTAS STOCK
+    Route::resource('products_stock', ProductStockController::class);
+    Route::get('products_stock-data', [ProductStockController::class, 'getData'])->name('products_stock.data');
 });
 
 require __DIR__.'/auth.php';
