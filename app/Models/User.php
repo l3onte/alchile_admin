@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Branch;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -45,5 +47,30 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function branches(): HasMany
+    {
+        return $this->hasMany(Branch::class, 'admin_id');
+    }
+
+    public function cash_shifts(): HasMany
+    {
+        return $this->hasMany(CashShift::class, 'user_id');
+    }
+
+    public function product_movements(): HasMany
+    {
+        return $this->hasMany(ProductMovement::class, 'user_id');
+    }
+
+    public function supply_movements(): HasMany
+    {
+        return $this->hasMany(SupplyMovement::class, 'user_id');
+    }
+
+    public function wastes(): HasMany
+    {
+        return $this->hasMany(Waste::class, 'user_id');
     }
 }
