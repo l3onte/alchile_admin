@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->except(['create', 'edit', 'show']);
 
     Route::resource('branches', BranchController::class)->except(['create', 'edit', 'show']);
+
+    Route::resource('suppliers', SupplierController::class)->except(['create', 'edit', 'show']);
 });
 
 require __DIR__.'/auth.php';

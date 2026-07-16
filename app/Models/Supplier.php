@@ -11,9 +11,12 @@ class Supplier extends Model
     use HasFactory;
 
     protected $fillable = [
+        'contact_name',
         'name',
         'phone',
-        'email'
+        'email',
+        'is_active',
+        'avatar_url'
     ];
 
     public function supplies(): HasMany 
