@@ -14,7 +14,8 @@ class Branch extends Model
     protected $fillable = [
         'admin_id',
         'branch_name',
-        'location'
+        'location',
+        'is_active'
     ];
 
     public function admin(): BelongsTo

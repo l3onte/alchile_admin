@@ -2,13 +2,11 @@ import React from 'react';
 import { router } from '@inertiajs/react';
 
 export default function Pagination({ links }) {
-    // Si no hay links o solo hay una página, no renderizamos nada
     if (!links || links.length <= 3) return null;
 
     return (
         <div className="flex justify-center items-center gap-2 mt-6 mb-4">
             {links.map((link, idx) => {
-                // Manejar las etiquetas de Laravel para anterior/siguiente (si vienen como texto o flechas)
                 let label = link.label;
                 if (label.includes('Previous')) label = '«';
                 if (label.includes('Next')) label = '»';
