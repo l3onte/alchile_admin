@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('suppliers', function (Blueprint $table) {
-            $table->string('contact_name', 255)->nullable()->after('id');
-            $table->boolean('is_active')->default(true)->after('email');
+        Schema::table('measurement_units', function (Blueprint $table) {
+            $table->string('avatar_url')->nullable()->after('id');
+            $table->boolean('is_active')->default(true)->after('abbreviation');
         });
     }
 
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('suppliers', function (Blueprint $table) {
-            $table->dropColumn('contact_name');
+        Schema::table('measurement_units', function (Blueprint $table) {
+            $table->dropColumn('avatar_url');
             $table->dropColumn('is_active');
         });
     }

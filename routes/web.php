@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\MeasurementUnitController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -31,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('branches', BranchController::class)->except(['create', 'edit', 'show']);
 
     Route::resource('suppliers', SupplierController::class)->except(['create', 'edit', 'show']);
+
+    Route::resource('measurementunits', MeasurementUnitController::class)->except(['create', 'edit', 'show']);
 });
 
 require __DIR__.'/auth.php';

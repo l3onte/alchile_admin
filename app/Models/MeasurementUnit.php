@@ -11,8 +11,10 @@ class MeasurementUnit extends Model
     use HasFactory;
 
     protected $fillable = [
+        'avatar_url',
         'name',
-        'abbreviation'
+        'abbreviation',
+        'is_active'
     ];  
 
     public function supplies(): HasMany
