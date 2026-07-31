@@ -21,4 +21,9 @@ class MeasurementUnit extends Model
     {
         return $this->hasMany(Supply::class, 'measurement_unit_id');
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'measurement_unit_id');
+    }
 }

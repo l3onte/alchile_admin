@@ -37,15 +37,13 @@ export default function InfoCard({
                 )}
             </div>
 
-            {/* Textos: Título, Subtítulo y Extra (Reactivo a lo que envíes) */}
             <div className="flex-1 min-w-0 pr-2">
                 <div className="flex items-center gap-2">
                     <h2 className="font-bold text-gray-800 text-sm truncate">
                         {title}
                     </h2>
-                    {/* Renderiza un Badge opcional al lado del título si existe */}
                     {badge && (
-                        <div className="flex-shrink-0">
+                        <div>
                             {badge}
                         </div>
                     )}

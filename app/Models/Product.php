@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
@@ -13,6 +14,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'is_reventa',
+        'measurement_unit_id',
         'status'
     ];
 
@@ -42,5 +44,10 @@ class Product extends Model
     public function product_movements(): HasMany
     {
         return $this->hasMany(ProductMovement::class, 'product_id');
+    }
+
+    public function measumeasurement_unit(): BelongsTo
+    {
+        return $this->belongsTo(MeasurementUnit::class, 'measurement_unit_id');
     }
 }

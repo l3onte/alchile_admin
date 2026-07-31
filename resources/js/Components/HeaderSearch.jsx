@@ -1,6 +1,21 @@
+import { router } from '@inertiajs/react';
 import React from 'react';
 
-export default function HeaderSearch({ title, placeholder, searchValue, onSearchChange, onBackClick, onMenuClick }) {
+export default function HeaderSearch({ title, placeholder, searchValue, onSearchChange, onBackClick, onMenuClick, branches = [], selectedBranch = 'all' }) {
+
+    const handleBranchChange = (e) => {
+        const branchId = e.target.value;
+
+        router.get(
+            route(route().current()), 
+            { branch_id: branchId }, 
+            { 
+                preserveState: false, 
+                replace: true 
+            }
+        );
+    };
+
     return (
         <div className="mb-6">
             <div className="flex justify-between items-center mb-5 pt-2">
@@ -24,6 +39,23 @@ export default function HeaderSearch({ title, placeholder, searchValue, onSearch
             </div>
 
             <h1 className="text-2xl font-bold text-gray-900 mb-4 px-1">{title}</h1>
+
+            {Array.isArray(branches) && branches.length > 0 && (
+                <div className="mb-4">
+                    <select 
+                        value={selectedBranch}
+                        onChange={handleBranchChange}
+                        className="w-full bg-white border border-gray-200 py-2.5 px-3 rounded-xl text-sm font-medium text-gray-700 outline-none focus:border-gray-400 focus:ring-0 shadow-sm"
+                    >
+                        <option value="all">Todas las sucursales</option>
+                        {branches.map((branch) => (
+                            <option key={branch.id} value={branch.id}>
+                                {branch.branch_name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            )}
 
             <div className="flex items-center gap-3">
                 <div className="relative flex-1">
