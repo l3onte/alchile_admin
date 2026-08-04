@@ -15,13 +15,20 @@ export default function Pagination({ links }) {
                     <button
                         key={idx}
                         disabled={!link.url}
-                        onClick={() => link.url && router.get(link.url)}
+                        onClick={() => {
+                            if (link.url) {
+                                router.get(link.url, {}, {
+                                    preserveState: true,
+                                    preserveScroll: true,
+                                });
+                            }
+                        }}
                         className={`
                             min-w-[40px] h-10 px-3 flex items-center justify-center text-sm font-medium transition-all duration-200
-                            ${link.active 
-                                ? 'bg-[#262626] text-white rounded-xl shadow-sm scale-105' 
-                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl'
-                            }
+                            ${link.active
+                            ? 'bg-[#262626] text-white rounded-xl shadow-sm scale-105'
+                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl'
+                        }
                             ${!link.url ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}
                         `}
                         dangerouslySetInnerHTML={{ __html: label }}

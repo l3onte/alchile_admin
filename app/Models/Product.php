@@ -24,7 +24,7 @@ class Product extends Model
             'is_reventa' => 'boolean',
             'status'    => 'boolean',
         ];
-    }   
+    }
 
     public function branch_products(): HasMany
     {
@@ -46,7 +46,7 @@ class Product extends Model
         return $this->hasMany(ProductMovement::class, 'product_id');
     }
 
-    public function measumeasurement_unit(): BelongsTo
+    public function measurement_unit(): BelongsTo
     {
         return $this->belongsTo(MeasurementUnit::class, 'measurement_unit_id');
     }

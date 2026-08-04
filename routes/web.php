@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupplyController;
+use App\Http\Controllers\MovementsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('supplies', SupplyController::class)->except(['edit', 'create']);
 
     Route::resource('products', ProductController::class)->except(['edit', 'create']);
+
+    Route::resource('movements', MovementsController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';
